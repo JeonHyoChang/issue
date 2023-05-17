@@ -1,7 +1,7 @@
 #!/bin/bash
 
 REPOSITORY=/home/ubuntu/app/step2
-PROJECT_NAME=webservice
+PROJECT_NAME=issue-tracker
 
 echo "> Build 파일복사"
 cp $REPOSITORY/zip/*.jar $REPOSITORY/
