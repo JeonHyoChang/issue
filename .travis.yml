@@ -4,9 +4,9 @@ jdk:
 
 branches:
   only:
-    - manju # 해당하는 브랜치
+    - manju # 해당 하는 브랜치
 
-# 폴더 변경시 필요한 부분
+# 폴더 변경시 필요한 부분(루트 폴더가 다를시)
 before_script:
   - cd BE/
 
@@ -18,9 +18,6 @@ cache:
 
 script: "./gradlew clean build"
 
-#before_install:
-#  - chmod +x gradlew
-
 before_deploy: # deploy 명령어가 실행되기전 수행
   - mkdir -p before-deploy # zip에 포함시킬 파일들을 담을 디렉토리 생성
   - cp scripts/*.sh before-deploy/
@@ -30,18 +27,18 @@ before_deploy: # deploy 명령어가 실행되기전 수행
   - cd ../ && mkdir -p deploy # 상위 디렉토리로 이동 후 deploy 디렉토리 생성
   - mv before-deploy/before-deploy.zip deploy/webservice.zip
 
-
 deploy:
   - provider: s3
     access_key_id: $AWS_ACCESS_KEY
     secret_access_key: $AWS_SECRET_KEY
+
     bucket: manju-issue-test # S3 버킷 명칭
     region: ap-northeast-2
     skip_cleanup: true
     acl: private # zip 파일 접근을 private로
     local_dir: deploy # before_deploy에서 생성한 디렉토리
     wait-until-deployed: true
-    on: # S3 전송을 위한 명령어
+    on: # 배포 브랜치 권한 설정
       all_branches: true
 
   - provider: codedeploy
@@ -49,14 +46,14 @@ deploy:
     secret_access_key: $AWS_SECRET_KEY
 
     bucket: manju-issue-test
-    key: webservice.zip
+    key: webservice.zip # 전달 받을 파일한
     bundle_type: zip # 압축 확장자
 
     application: webservice-test
     deployment_group: webservice-group
     region: ap-northeast-2
     wait-until-deployed: true
-    on: # S3 전송을 위한 명령어
+    on: # 배포 브랜치 권한 설정
       all_branches: true
 
 # CI 실행 완료시 메일로 알람
