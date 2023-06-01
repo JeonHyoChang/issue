@@ -27,7 +27,7 @@ jobs:
 
       - name: Check if specific user pushed
         run: |
-          if: github.actor == 'username'
+          if: github.actor == 'JeonHyoChang'
             run: |
             echo "The specific user pushed. Perform the necessary actions here."
 
