@@ -25,7 +25,13 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v3
 
-      # 2) node 셋팅
+      - name: Check if specific user pushed
+        run: |
+          if: github.actor == 'username'
+            run: |
+            echo "The specific user pushed. Perform the necessary actions here."
+
+      # 3) node 셋팅
       - name: Set node@v1
         uses: actions/setup-node@v3
 
