@@ -2,7 +2,7 @@ version: 0.0 # CodeDeploy 버전 / 프로젝트 버전이 아니므로 0.0(이 �
 os: linux
 files:
   - source: /
-    destination: /home/ubuntu/app/FE/build/
+    destination: /home/ubuntu/app/FE
     overwrite: yes
 
 permissions: # EC2 서버로 넘겨준 파일들을 모두 해당 유저의 권한을 갖도록 설정

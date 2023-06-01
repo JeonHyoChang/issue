@@ -53,14 +53,15 @@ jobs:
           aws-secret-access-key: ${{ secrets.AWS_SECRET_KEY}}
           aws-region: ${{ secrets.AWS_REGION }}
 
+      # 필요한 파일 3개 압축
+      - name: Zip files
+        run: |
+          zip -r upload.zip ./fe/build ./scripts/*.sh ./appspec.yml
+
       # AWS S3에 업로드
       - name: Upload to AWS S3
         run: |
-          aws deploy push \
-            --application-name ${{ env.CODE_DEPLOY_APPLICATION_NAME }} \
-            --ignore-hidden-files \
-            --s3-location s3://$S3_BUCKET_NAME/GITHUB_SHA.zip \
-            --source ./fe/build, ./scripts, ./appspec.yml
+          aws s3 cp upload.zip s3://${S3_BUCKET_NAME}/upload.zip
 
 #      # AWS EC2에 Deploy
 #      - name: Deploy to AWS EC2 from S3
@@ -69,4 +70,4 @@ jobs:
 #            --application-name ${{ env.CODE_DEPLOY_APPLICATION_NAME }} \
 #            --deployment-config-name CodeDeployDefault.AllAtOnce \
 #            --deployment-group-name ${{ env.CODE_DEPLOY_DEPLOYMENT_GROUP_NAME }} \
-#            --s3-location bucket=$S3_BUCKET_NAME,key=GITHUB_SHA.zip,bundleType=zip
+#            --s3-location bucket=$S3_BUCKET_NAME,key=upload.zip,bundleType=zip
