@@ -49,6 +49,7 @@ const IssueList = () => {
   const fetchData = async () => {
     try {
       const url = generateQuery(issueListState);
+      console.log(url)
       const response = await fetch(url);
       const issueListData = await response.json();
       setIssuePageData(issueListData);
