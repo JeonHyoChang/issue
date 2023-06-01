@@ -13,6 +13,6 @@ permissions: # EC2 서버로 넘겨준 파일들을 모두 해당 유저의 권�
 
 hooks: # 배포 단계에서 실행할 명령어를 지정
   ApplicationStart: # 해당 권한으로 파일을 실행
-    - location: deployFE.sh
+    - location: scripts/deployFE.sh
       timout: 60 # 무한정 대기를 막기 위한 시간 제한
       runas: ubuntu
