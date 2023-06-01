@@ -25,11 +25,12 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v3
 
+      # 2) 담당자 체크
       - name: Check if specific user pushed
         run: |
-          if: github.actor == 'JeonHyoChang'
-            run: |
+          if [ "${{ github.actor }}" == "JeonHyoChang" ]; then
             echo "The specific user pushed. Perform the necessary actions here."
+          fi
 
       # 3) node 셋팅
       - name: Set node@v1
